@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Аккаунты</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #121212;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            /* Добавляем фон */
+            background-image: url('https://avatars.mds.yandex.net/i?id=e149e0cf94688fe40ee87a87bf00647f_l-8497209-images-thumbs&n=13');
+            /* Указываем путь к вашему изображению */
+            background-size: cover;
+            /* Растягиваем фон на весь экран */
+            background-position: center;
+            /* Центрируем изображение */
+            background-repeat: no-repeat;
+            /* Запрещаем повторение фона */
+        }
+
+        /* Добавляем псевдоэлемент для затемнения фона */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            /* Затемнение фона */
+            z-index: -1;
+            /* Помещаем псевдоэлемент под контент */
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        header {
+            background-color: rgba(30, 30, 30, 0.7);
+            /* Добавляем прозрачность */
+            padding: 20px;
+            text-align: center;
+            border-bottom: 2px solid #3498db;
+            position: relative;
+            /* Добавляем позиционирование */
+            z-index: 1;
+            /* Устанавливаем z-index */
+        }
+
+        /* Стили для надписи 𝒮𝒜𝑀𝒮𝒜 */
+        header h1 {
+            font-size: 3em;
+            /* Увеличиваем размер шрифта */
+            font-weight: bold;
+            /* Делаем шрифт жирным */
+            color: #fff;
+            /* Белый цвет текста */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            /* Добавляем тень для лучшей видимости */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            /* Изменяем шрифт */
+        }
+
+        nav {
+            background-color: rgba(44, 62, 80, 0.7);
+            /* Добавляем прозрачность */
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            position: relative;
+            /* Добавляем позиционирование */
+            z-index: 1;
+            /* Устанавливаем z-index */
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav li {
+            margin: 0 30px;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.2em;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #3498db;
+        }
+
+        .content {
+            display: flex;
+            /* Изменяем на flex */
+            flex-wrap: nowrap;
+            /* Запрещаем перенос на новую строку */
+            justify-content: space-around;
+            /* Равномерное распределение */
+            width: 100%;
+            position: relative;
+            /* Добавляем позиционирование */
+            z-index: 1;
+            /* Устанавливаем z-index */
+            overflow-x: auto;
+            /* Добавляем горизонтальную прокрутку */
+            padding: 20px;
+            /* Добавляем отступы */
+        }
+
+        .card {
+            background-color: rgba(30, 30, 30, 0.7);
+            /* Добавляем прозрачность */
+            border-radius: 8px;
+            padding: 40px;
+            margin: 0 20px;
+            /* Уменьшаем отступы по бокам */
+            width: 300px;
+            /* Уменьшаем ширину карточек */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            flex-shrink: 0;
+            /* Запрещаем сжатие карточек */
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card h2 {
+            color: #3498db;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            /* Уменьшаем размер шрифта */
+            word-break: keep-all;
+        }
+
+        .card p {
+            color: #ddd;
+            line-height: 1.6;
+            margin-bottom: 40px;
+            font-size: 1em;
+            /* Уменьшаем размер шрифта */
+            text-align: center;
+        }
+
+        .card a {
+            font-size: 1.2em;
+            /* Уменьшаем размер шрифта */
+            padding: 10px 20px;
+            /* Уменьшаем отступы */
+        }
+
+        footer {
+            background-color: rgba(30, 30, 30, 0.7);
+            /* Добавляем прозрачность */
+            text-align: center;
+            padding: 20px;
+            margin-top: auto;
+            border-top: 2px solid #3498db;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1;
+            /* Устанавливаем z-index */
+        }
+
+        footer p {
+            color: #aaa;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>𓂀 𝒮𝒜𝑀𝒮𝒜 𓂀</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#">Главная</a></li>
+            <li><a href="https://t.me/XXXfiftiXXX">Контакты</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <div class="content">
+            <div class="card">
+                <h2>Аккаунты PUBG Mobile</h2>
+                <p>Аккаунты PUBG MOBILE для продаж и для себя</p>
+                <a href="pubg.html"
+                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Подробнее</a>
+            </div>
+
+            <div class="card">
+                <h2>Аккаунты BlackRussia</h2>
+                <p>Аккаунты BlackRussia для продаж и для себя</p>
+                <a href="blackrussia.html"
+                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Подробнее</a>
+            </div>
+
+            <div class="card">
+                <h2>SOFT PUBG-M</h2>
+                <p>Аккаунты для игры с Soft</p>
+                <a href="soft_pubg.html"
+                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Подробнее</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>Аккаунты игр для продаж и себя</p>
+    </footer>
+</body>
+
+</html>

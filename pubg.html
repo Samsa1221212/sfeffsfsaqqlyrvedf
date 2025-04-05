@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Аккаунты PUBG Mobile</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #121212;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background-color: #1e1e1e;
+            padding: 20px;
+            text-align: center;
+            border-bottom: 2px solid #3498db;
+        }
+
+        nav {
+            background-color: #2c3e50;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav li {
+            margin: 0 20px;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #3498db;
+        }
+
+        /* Стили для таблицы */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th,
+        td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #34495e;
+        }
+
+        th {
+            background-color: #34495e;
+            color: #fff;
+        }
+
+        tbody tr:hover {
+            background-color: #4a658a;
+        }
+
+        /* Стили для формы добавления аккаунта */
+        #addAccountForm {
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        #addAccountForm label {
+            display: block;
+            margin-bottom: 5px;
+            color: #fff;
+        }
+
+        #addAccountForm input[type="text"],
+        #addAccountForm input[type="number"],
+        #addAccountForm select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #34495e;
+            border-radius: 4px;
+            background-color: #1e1e1e;
+            color: #fff;
+        }
+
+        #addAccountForm button {
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #addAccountForm button:hover {
+            background-color: #2980b9;
+        }
+
+        /* Стили для формы редактирования аккаунта */
+        #editAccountForm {
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        #editAccountForm label {
+            display: block;
+            margin-bottom: 5px;
+            color: #fff;
+        }
+
+        #editAccountForm input[type="text"],
+        #editAccountForm input[type="number"],
+        #editAccountForm select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #34495e;
+            border-radius: 4px;
+            background-color: #1e1e1e;
+            color: #fff;
+        }
+
+        #editAccountForm button {
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #editAccountForm button:hover {
+            background-color: #2980b9;
+        }
+
+        /* Стили для кнопок действий */
+        .action-buttons button {
+            background-color: #e74c3c;
+            color: #fff;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-right: 5px;
+        }
+
+        .action-buttons button:hover {
+            background-color: #c0392b;
+        }
+
+        /* Стили для пагинации */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .pagination button {
+            background-color: #3498db;
+            color: #fff;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin: 0 5px;
+        }
+
+        .pagination button:hover {
+            background-color: #2980b9;
+        }
+
+        .pagination span {
+            color: #fff;
+            margin: 0 5px;
+        }
+
+        /* Стили для поиска по статусу */
+        #statusSearch {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #34495e;
+            border-radius: 4px;
+            background-color: #1e1e1e;
+            color: #fff;
+        }
+
+        /* Стили для кнопки "Добавить аккаунт" */
+        #addAccountButton {
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        #addAccountButton:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Аккаунты PUBG Mobile</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">Главная</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <!-- Кнопка "Добавить аккаунт" -->
+        <button id="addAccountButton" onclick="toggleAddAccountForm()">Добавить аккаунт</button>
+
+        <!-- Форма для добавления аккаунта -->
+        <form id="addAccountForm">
+            <label for="email">Почта:</label>
+            <input type="text" id="email" name="email" required>
+            <label for="password">Пароль:</label>
+            <input type="text" id="password" name="password" required>
+            <label for="email2">EMAIL(Привязка):</label>
+            <input type="text" id="email2" name="email2">
+            <label for="levelClassic">Уровень Классика:</label>
+            <input type="number" id="levelClassic" name="levelClassic">
+            <label for="levelMetro">Уровень Metro:</label>
+            <input type="number" id="levelMetro" name="levelMetro">
+            <label for="status">Статус:</label>
+            <select id="status" name="status">
+                <option value="В прокачке">В прокачке</option>
+                <option value="Доступен">Доступен</option>
+                <option value="На продаже">На продаже</option>
+                <option value="Продан">Продан</option>
+            </select>
+            <button type="button" onclick="addAccount()">Добавить аккаунт</button>
+        </form>
+
+        <!-- Форма для редактирования аккаунта -->
+        <form id="editAccountForm" style="display: none;">
+            <label for="editEmail">Почта:</label>
+            <input type="text" id="editEmail" name="editEmail" required>
+            <label for="editPassword">Пароль:</label>
+            <input type="text" id="editPassword" name="editEditPassword" required>
+            <label for="editEmail2">EMAIL(Привязка):</label>
+            <input type="text" id="editEmail2" name="editEmail2">
+            <label for="editLevelClassic">Уровень Классика:</label>
+            <input type="number" id="editLevelClassic" name="editLevelClassic">
+            <label for="editLevelMetro">Уровень Metro:</label>
+            <input type="number" id="editLevelMetro" name="editLevelMetro">
+            <label for="editStatus">Статус:</label>
+            <select id="editStatus" name="editStatus">
+                <option value="В прокачке">В прокачке</option>
+                <option value="Доступен">Доступен</option>
+                <option value="На продаже">На продаже</option>
+                <option value="Продан">Продан</option>
+            </select>
+            <button type="button" onclick="saveAccount()">Сохранить</button>
+        </form>
+
+        <!-- Поиск по статусу -->
+        <label for="statusSearch">Поиск по статусу:</label>
+        <select id="statusSearch" onchange="updateTable()">
+            <option value="">Все статусы</option>
+            <option value="В прокачке">В прокачке</option>
+            <option value="Доступен">Доступен</option>
+            <option value="На продаже">На продаже</option>
+            <option value="Продан">Продан</option>
+        </select>
+
+        <!-- Таблица аккаунтов -->
+        <table id="accountsTable">
+            <thead>
+                <tr>
+                    <th>Почта</th>
+                    <th>Пароль</th>
+                    <th>EMAIL(Привязка)</th>
+                    <th>Уровень Классика</th>
+                    <th>Уровень Metro</th>
+                    <th>Статус</th>
+                    <th>Действия</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Здесь будут отображаться аккаунты -->
+            </tbody>
+        </table>
+
+        <!-- Пагинация -->
+        <div class="pagination">
+            <button onclick="prevPage()" id="prevButton">Предыдущая</button>
+            <span id="pageNumber">Страница 1</span>
+            <button onclick="nextPage()" id="nextButton">Следующая</button>
+        </div>
+    </div>
+
+    <script>
+        let accounts = [];
+        let currentPage = 1;
+        const accountsPerPage = 10;
+        let editingIndex = -1; // Индекс редактируемого аккаунта
+        const localStorageKey = 'pubgAccounts'; // Ключ для localStorage
+
+        // Функция для загрузки данных из localStorage
+        function loadAccounts() {
+            const storedAccounts = localStorage.getItem(localStorageKey);
+            if (storedAccounts) {
+                accounts = JSON.parse(storedAccounts);
+            }
+        }
+
+        // Функция для сохранения данных в localStorage
+        function saveAccounts() {
+            localStorage.setItem(localStorageKey, JSON.stringify(accounts));
+        }
+
+        function toggleAddAccountForm() {
+            const form = document.getElementById('addAccountForm');
+            form.style.display = form.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function addAccount() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const email2 = document.getElementById('email2').value;
+            const levelClassic = document.getElementById('levelClassic').value;
+            const levelMetro = document.getElementById('levelMetro').value;
+            const status = document.getElementById('status').value;
+
+            if (!email || !password) {
+                alert('Пожалуйста, заполните почту и пароль.');
+                return;
+            }
+
+            const newAccount = {
+                email: email,
+                password: password,
+                email2: email2,
+                levelClassic: levelClassic,
+                levelMetro: levelMetro,
+                status: status
+            };
+
+            accounts.push(newAccount);
+            saveAccounts(); // Сохраняем в localStorage
+            document.getElementById('addAccountForm').reset();
+            toggleAddAccountForm(); // Скрыть форму после добавления аккаунта
+            updateTable();
+        }
+
+        function deleteAccount(index) {
+            accounts.splice(index, 1);
+            saveAccounts(); // Сохраняем в localStorage
+            updateTable();
+        }
+
+        function editAccount(index) {
+            editingIndex = index; // Сохраняем индекс редактируемого аккаунта
+            const account = accounts[index];
+
+            // Заполняем форму редактирования данными аккаунта
+            document.getElementById('editEmail').value = account.email;
+            document.getElementById('editPassword').value = account.password;
+            document.getElementById('editEmail2').value = account.email2;
+            document.getElementById('editLevelClassic').value = account.levelClassic;
+            document.getElementById('editLevelMetro').value = account.levelMetro;
+            document.getElementById('editStatus').value = account.status;
+
+            // Показываем форму редактирования
+            document.getElementById('editAccountForm').style.display = 'block';
+        }
+
+        function saveAccount() {
+            if (editingIndex === -1) {
+                return; // Если не редактируем, выходим
+            }
+
+            // Получаем данные из формы редактирования
+            const email = document.getElementById('editEmail').value;
+            const password = document.getElementById('editPassword').value;
+            const email2 = document.getElementById('editEmail2').value;
+            const levelClassic = document.getElementById('editLevelClassic').value;
+            const levelMetro = document.getElementById('editLevelMetro').value;
+            const status = document.getElementById('editStatus').value;
+
+            // Обновляем данные аккаунта в массиве
+            accounts[editingIndex] = {
+                email: email,
+                password: password,
+                email2: email2,
+                levelClassic: levelClassic,
+                levelMetro: levelMetro,
+                status: status
+            };
+
+            saveAccounts(); // Сохраняем в localStorage
+
+            // Скрываем форму редактирования
+            document.getElementById('editAccountForm').style.display = 'none';
+            editingIndex = -1; // Сбрасываем индекс редактируемого аккаунта
+
+            // Обновляем таблицу
+            updateTable();
+        }
+
+        function updateTable() {
+            const tableBody = document.querySelector('#accountsTable tbody');
+            tableBody.innerHTML = '';
+
+            const statusSearchTerm = document.getElementById('statusSearch').value;
+
+            // Фильтрация аккаунтов по статусу
+            const filteredAccounts = accounts.filter(account =>
+                statusSearchTerm === '' || account.status === statusSearchTerm
+            );
+
+            const startIndex = (currentPage - 1) * accountsPerPage;
+            const endIndex = startIndex + accountsPerPage;
+            const currentAccounts = filteredAccounts.slice(startIndex, endIndex);
+
+            currentAccounts.forEach((account, index) => {
+                const rowIndex = accounts.indexOf(account); // Получаем индекс аккаунта в исходном массиве
+                const row = tableBody.insertRow();
+                const emailCell = row.insertCell();
+                const passwordCell = row.insertCell();
+                const email2Cell = row.insertCell();
+                const levelClassicCell = row.insertCell();
+                const levelMetroCell = row.insertCell();
+                const statusCell = row.insertCell();
+                const actionsCell = row.insertCell();
+
+                emailCell.textContent = account.email;
+                passwordCell.textContent = account.password;
+                email2Cell.textContent = account.email2;
+                levelClassicCell.textContent = account.levelClassic;
+                levelMetroCell.textContent = account.levelMetro;
+                statusCell.textContent = account.status;
+                actionsCell.innerHTML = `
+                    <div class="action-buttons">
+                        <button onclick="editAccount(${rowIndex})">Редактировать</button>
+                        <button onclick="deleteAccount(${rowIndex})">Удалить</button>
+                    </div>
+                `;
+            });
+
+            updatePagination();
+        }
+
+        function prevPage() {
+            if (currentPage > 1) {
+                currentPage--;
+                updateTable();
+            }
+        }
+
+        function nextPage() {
+            const statusSearchTerm = document.getElementById('statusSearch').value;
+
+            // Фильтрация аккаунтов по статусу
+            const filteredAccounts = accounts.filter(account =>
+                statusSearchTerm === '' || account.status === statusSearchTerm
+            );
+            const totalPages = Math.ceil(filteredAccounts.length / accountsPerPage);
+            if (currentPage < totalPages) {
+                currentPage++;
+                updateTable();
+            }
+        }
+
+        function updatePagination() {
+            const statusSearchTerm = document.getElementById('statusSearch').value;
+
+            // Фильтрация аккаунтов по статусу
+            const filteredAccounts = accounts.filter(account =>
+                statusSearchTerm === '' || account.status === statusSearchTerm
+            );
+            const totalPages = Math.ceil(filteredAccounts.length / accountsPerPage);
+            document.getElementById('pageNumber').textContent = `Страница ${currentPage} из ${totalPages}`;
+
+            // Отключаем кнопки, если находимся на первой или последней странице
+            document.getElementById('prevButton').disabled = currentPage === 1;
+            document.getElementById('nextButton').disabled = currentPage === totalPages || totalPages === 0;
+        }
+
+        // Загружаем данные из localStorage при загрузке страницы
+        loadAccounts();
+        // Инициализация таблицы при загрузке страницы
+        updateTable();
+    </script>
+</body>
+
+</html>
